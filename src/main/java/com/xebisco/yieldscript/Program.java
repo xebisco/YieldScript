@@ -1,5 +1,6 @@
 package com.xebisco.yieldscript;
 
+import com.xebisco.yieldscript.functions.Import;
 import com.xebisco.yieldscript.functions.Print;
 import com.xebisco.yieldscript.functions.Var;
 
@@ -19,6 +20,7 @@ public class Program {
     public Program() {
         functions.add(new Print());
         functions.add(new Var());
+        functions.add(new Import());
     }
 
     public Integer getVar(String name, int funcLayer) {

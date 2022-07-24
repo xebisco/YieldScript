@@ -85,6 +85,7 @@ public class Interpreter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(lines);
         execute(lines, 0);
         List<String> lns = program.getAppFunction().get("main");
         if (lns != null)
@@ -134,10 +135,14 @@ public class Interpreter {
                 }
             }
             if (!find) {
-                List<String> lns = program.getAppFunction().get(pcs[0]);
-                if (lns != null)
-                    execute(lns, funcLayer + 1);
-                else throw new SyntaxException("Cound not find function '" + pcs[0] + "'");
+                if (pcs.length > 1 && pcs[1].hashCode() == "=".hashCode()) {
+                    program.getCache().put(pcs[0] + "\2" + funcLayer, Integer.parseInt(pcs[2]));
+                } else {
+                    List<String> lns = program.getAppFunction().get(pcs[0]);
+                    if (lns != null)
+                        execute(lns, funcLayer + 1);
+                    else throw new SyntaxException("Cound not find function '" + pcs[0] + "'");
+                }
             }
         }
     }
